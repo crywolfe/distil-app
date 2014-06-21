@@ -13,6 +13,8 @@ class Domain < ActiveRecord::Base
   belongs_to :account
   validates :hostname, presence: true, uniqueness: true
   validates :origin_ip_address, presence: true
+  validates_length_of :origin_ip_address, is: 15, message: "your ip address length is incorrect."
+
 
 
 end
