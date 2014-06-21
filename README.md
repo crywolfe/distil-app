@@ -14,7 +14,10 @@ INSTALLATION
 USE
 ===
 
-
+CURL can be used to access the API and create a POST request.  Remember, -X specifies the method... here it is POST. -d allows the sending of data with the request.
+```bash
+curl -i -X POST - d 'account[name]=???'... \ http://
+```
 
 TROUBLESHOOTING
 ===============
