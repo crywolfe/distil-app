@@ -10,6 +10,7 @@ INSTALLATION
 
 
 
+
 USE
 ===
 
@@ -17,3 +18,7 @@ USE
 
 TROUBLESHOOTING
 ===============
+
+pry-rails gem was installed
+
+annotate was installed
