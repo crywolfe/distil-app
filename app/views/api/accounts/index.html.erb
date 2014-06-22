@@ -1,0 +1,14 @@
+view/api/acounts/index
+
+<div>
+  <table>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td><%= account.name %></td>
+        <td><%= link_to 'Show', api_account_path(account) %></td>
+        <td><%= link_to 'Edit', edit_api_account_path(account) %></td>
+        <td><%= link_to 'Destroy', api_account_path(account), confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

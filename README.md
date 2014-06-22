@@ -5,16 +5,18 @@ This project creates a RESTful API that can be used by any number of different c
 
 The API will be used to manage a list of accounts and domains. Each account can have many domains.  A single domain can only belong to one account.
 
+The API will have its own accessible subdomain, `api.distil-app-dev.com`.
+
 INSTALLATION
 ============
 
-
+`sudo [text editor name] /etc/hosts`
 
 
 USE
 ===
 
-First, make sure you have your `etc/hosts` file set up to allow for the api subdomain.
+First, make sure you have your `/etc/hosts` file set up to allow for the api subdomain.
 ```bash
 127.0.0.1 distil-app-dev.com
 127.0.0.1 api.distil-app-dev.com
