@@ -19,7 +19,6 @@ module API
     end
 
     def show
-      binding.pry
       account = Account.find(params[:id])
       render json: account, status: 200
 

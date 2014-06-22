@@ -24,10 +24,33 @@ First, make sure you have your `/etc/hosts` file set up to allow for the api sub
 To access this URL, still need port number...
 so ...-dev.com:3000
 
-CURL can be used to access the API and create a POST request.  Remember, -X specifies the method... here it is POST. -d allows the sending of data with the request.
+From the terminal, CURL can be used to access the API and prepare RESTful requests.
+The -i flag includes the http header in the output.  
+The -X flag specifies the method.
+The -d flag specifies the data being sent with the request.
+
+To Post to an Account
+---------------------
+For example, to issue a post request to the accounts table using the name attribute, type the following command in the terminal.
 ```bash
-curl -i -X POST - d 'account[name]=???'... \ http://
+$ curl -i -X POST -d 'account[name]=curl_post_account' http://api.distil-app-dev.com:3000/accounts
 ```
+
+To Get an Account
+-----------------
+For example, issue a get request for account with id of 2, type the following command in the terminal.
+```bash
+$ curl -i http://api.distil-app-dev.com:3000/accounts/2
+```
+
+To Delete an Account
+--------------------
+For example, to delete an account with id of 3, type one of the following command in the terminal.
+```bash
+$ curl -i -X DELETE http://api.distil-app-dev.com:3000/accounts/3
+$ curl --request DELETE http://api.distil-app-dev.com:3000/accounts/4
+```
+
 
 TROUBLESHOOTING
 ===============
