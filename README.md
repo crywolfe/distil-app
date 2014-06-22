@@ -29,7 +29,7 @@ The -i flag includes the http header in the output.
 The -X flag specifies the method.
 The -d flag specifies the data being sent with the request.
 
-To Post to an Account
+To Create an Account
 ---------------------
 For example, to issue a post request to the accounts table using the name attribute, type the following command in the terminal.
 ```bash
@@ -51,6 +51,13 @@ $ curl -i -X DELETE http://api.distil-app-dev.com:3000/accounts/3
 $ curl --request DELETE http://api.distil-app-dev.com:3000/accounts/4
 ```
 
+To Create a Domain with Multiple Attributes
+-------------------------------------------
+The important item to remember is to use '&' within the data string.
+
+```bash
+$ curl -i -X POST -d 'domain[hostname]=www.distilnetworks.com&domain[origin_ip_address]=123.456.789.012' http://api.distil-app-dev.com:3000/domains
+```
 
 TROUBLESHOOTING
 ===============
