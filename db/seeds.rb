@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+accounts = Account.create([{name: 'test_account_1'}, {name: 'test_account_2'}, {name: 'test_account_1'}])
