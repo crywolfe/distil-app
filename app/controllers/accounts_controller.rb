@@ -2,6 +2,7 @@ class AccountsController < ActionController::Base
 
   def index
     accounts = Account.all
+    redirect_to (api_accounts_path)
 
   end
 
