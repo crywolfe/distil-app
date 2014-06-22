@@ -12,6 +12,8 @@ INSTALLATION
 
 `sudo [text editor name] /etc/hosts`
 
+seed the database.
+
 
 USE
 ===
@@ -34,6 +36,13 @@ To Create an Account
 For example, to issue a post request to the accounts table using the name attribute, type the following command in the terminal.
 ```bash
 $ curl -i -X POST -d 'account[name]=curl_post_account' http://api.distil-app-dev.com:3000/accounts
+```
+
+To Update an Account
+--------------------
+For example...
+```bash
+$ curl -i -X PATCH ???
 ```
 
 To Get an Account

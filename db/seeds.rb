@@ -7,3 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 accounts = Account.create([{name: 'test_account_1'}, {name: 'test_account_2'}, {name: 'test_account_1'}])
+
+domains = Domain.create([
+  {hostname: 'www.distilnetworks.com', origin_ip_address: '123.456.789.123'},
+  {hostname: 'www.funfunfun.com', origin_ip_address: '987.654.321.987'}
+  ])
