@@ -7,6 +7,7 @@
 #  origin_ip_address :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
+#  account_id        :integer
 #
 
 class Domain < ActiveRecord::Base
