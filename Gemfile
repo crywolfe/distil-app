@@ -42,3 +42,5 @@ group :development do
   gem 'pry-rails'
   gem 'annotate'
 end
+
+gem 'delayed_job'

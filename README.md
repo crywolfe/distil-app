@@ -14,6 +14,10 @@ INSTALLATION
 
 seed the database.
 
+install delayed_job gem
+`gem install delayed_job`
+follow the installation procedures from the delayed_job gem.
+??delayed_job_active_record
 
 USE
 ===
