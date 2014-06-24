@@ -1,68 +1,82 @@
 INTRODUCTION
 ============
 
-This project creates a RESTful API that can be used by any number of different clients.  In its current form, the most effective way to consume this API is via cURL since cURL allows for an easy POST request.  Although one can certainly install a browser extension to handle POST requests.
+This project creates a RESTful API that can be used by any number of different clients.  In its current form, the most effective way to consume this API is via cURL since cURL allows for an easy POST request, although one can install a browser extension to handle POST requests, or simply handle such requests through the console.
 
 The API will be used to manage a list of accounts and domains. Each account can have many domains.  A single domain can only belong to one account.
 
-The API will have its own accessible subdomain, `api.distil-app-dev.com`.
+The API will have its own accessible subdomain, `api.distil-app-dev.com` when in production. In development the port will be 3000, `api.distil-app-dev.com:3000`
+
+USE
+===
+
+The user can, through the API enter a hostname.  Then, the API will find the associated ip address of that hostname and update the database table accordingly.
+
+Note: The IP addresses of many hostnames are dynamic, not static.
 
 INSTALLATION
 ============
 
 `sudo [text editor name] /etc/hosts`
 
-
-install delayed_job gem
-`gem install delayed_job`
-follow the installation procedures from the delayed_job gem.
-??delayed_job_active_record
-rails generate delayed_job:active_record
-bundle exec rake jobs:work
-
-install the `dnsruby` gem
-
-
-USE
-===
-
-First, make sure you have your `/etc/hosts` file set up to allow for the api subdomain.
+Ensure that your `/etc/hosts` file is set up to allow for the api subdomain.
 ```bash
 127.0.0.1 distil-app-dev.com
 127.0.0.1 api.distil-app-dev.com
 ```
-To access this URL, one still needs to insert the port number.
+
+Install the `dnsruby` gem.
+
+DATABASE SETUP
+--------------
+
+The database is PostgreSQL.  On the development machine set up the database environment.
+
+1. `bundle exec rake db:create`
+
+2. `bundle exec rake db:migrate`
+
+3. `bundle exec rake db:seed` if desired.
+
+
+CONSUMING THE API
+=================
+
+The API returns JSON.
+
+Remember, the port number is still required to access the new localhost URL.
 `distil-app-dev.com:3000`
 
 From the terminal, cURL can be used to access the API and prepare RESTful requests.
 The -i flag includes the http header in the output if one so chooses.  
 The -X flag specifies the method.
-The -d flag specifies the data being sent with the request for a POST request.
+The -d flag specifies the data being sent as a string with the request for a POST request.
 
 To Create an Account (using cURL)
 ---------------------------------
 For example, to issue a post request to the accounts table using the name attribute, type the following command in the terminal.
 ```bash
-$ curl -i -X POST -d 'account[name]=my_domains' http://api.distil-app-dev.com:3000/accounts
+$ curl -i -X POST -d 'account[name]=my_account_name' http://api.distil-app-dev.com:3000/accounts
 ```
 
-To Create an Account (using a browser extension)
+To Create an Account (using a browser or developer tools)
 --------------------------------------
-The URL to use is `http://api.distil-app-dev.com:3000/api/accounts`
+The URL to use is `http://api.distil-app-dev.com:3000/accounts`
 The method is `POST`.
 The body of the method is json.
 
 
 To Update an Account (using cURL)
 ---------------------------------
-For example...
+Using the terminal,
+
 ```bash
-$ curl -i -X PATCH ???
+$ curl -i -X PATCH -d 'account[name]=my_other_account_name' http://api.distil-app-dev.com:3000/accounts/:id
 ```
 
-To Update an Account (using a browser extension)
+To Update an Account (using a browser or developer tools)
 ---------------------------------
-The URL to use is `http://api.distil-app-dev.com:3000/api/accounts/:id`
+The URL to use  `http://api.distil-app-dev.com:3000/accounts/:id`
 The method is `PATCH`.
 The body of the method is json.
 
@@ -73,9 +87,9 @@ For example, issue a get request for account with id of 2, type the following co
 $ curl -i http://api.distil-app-dev.com:3000/accounts/2
 ```
 
-To Get an Account (using the browser)
+To Get an Account (using a browser or developer tools)
 ------------------------------
-The URL to use is `http://api.distil-app-dev.com:3000/api/accounts/:id`
+The URL to use is `http://api.distil-app-dev.com:3000/accounts/:id`
 The method is `GET`.
 There is no body.
 
@@ -84,12 +98,12 @@ To Delete an Account (with cURL)
 For example, to delete an account with id of 3, type one of the following command in the terminal.
 ```bash
 $ curl -i -X DELETE http://api.distil-app-dev.com:3000/accounts/3
-$ curl --request DELETE http://api.distil-app-dev.com:3000/accounts/4
+$ curl --request DELETE http://api.distil-app-dev.com:3000/accounts/3
 ```
 
-To Delete an Account (with a browser extension)
+To Delete an Account (using a browser or developer tools)
 -----------------------------------------------
-The URL to use is `http://api.distil-app-dev.com:3000/api/accounts/:id`
+The URL to use is `http://api.distil-app-dev.com:3000/accounts/:id`
 The method is `DELETE`.
 There is no body.
 
@@ -101,26 +115,25 @@ The important item to remember is to use '&' within the data string.
 $ curl -i -X POST -d 'domain[hostname]=www.distilnetworks.com&domain[origin_ip_address]=123.456.789.012' http://api.distil-app-dev.com:3000/domains
 ```
 
+TESTING AND TROUBLESHOOTING
+===========================
 
-JSON is the content type.  JSON data is used in the body
+The following four gems were installed to support testing and troubleshooting.
 
-Content Type :
-  application/json
+1. rspec-rails;
+2. shoulda-matchers
+3. pry-rails; and
+4. annotate.
 
-???Body (assuming not in cURL):
-    json data in Body
+ISSUES
+======
 
-   sample json body
+I attempted to use several different gems to update records asynchronously, such as 'delayed_job', "delayed_job_active_record", and "beanstalkd-view".
 
-    {
-     "hostname" : "www.samplebody.com",
-     "account_id" : "2"
-    }
+My efforts were unsuccessful with the allotted time I had.  
 
+However, I read the respective docs extensively (to the extent there were docs), read the code and the methods on the rubydocs and github pages for each gem.  I googled for solutions, I read through stackoverflow posts as well as google groups for guidance.  But, none were forthcoming.
 
-TROUBLESHOOTING
-===============
+Specifically, my issue was that when I used the 'delayed_job' 'delay' method, it created a database attribute called 'handler' to hold the request, but I simply could not get the job to properly run in the background.  With that, I continued to get 'no method' errors.  I dug deep and employed my friend and confidant 'pry-rails'. But, still I could not figure out a solution.
 
-pry-rails gem was installed
-
-annotate was installed
+In short, as it relates to this exercise I have reached my level of incompetency and will need further guidance or more time to solve this issue.

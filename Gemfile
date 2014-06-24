@@ -38,12 +38,15 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-group :development do
+group :development, :test do
   gem 'pry-rails'
   gem 'annotate'
   gem 'awesome_print'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+
 end
 
-gem 'delayed_job'
-gem 'delayed_job_active_record'
+# gem 'delayed_job'
+# gem 'delayed_job_active_record'
 gem 'dnsruby'
