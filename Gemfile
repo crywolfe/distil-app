@@ -41,6 +41,9 @@ gem 'spring',        group: :development
 group :development do
   gem 'pry-rails'
   gem 'annotate'
+  gem 'awesome_print'
 end
 
 gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'dnsruby'

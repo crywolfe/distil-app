@@ -3,11 +3,8 @@ module API
 
     def index
       @accounts = Account.all
-      # redirect_to (root_path)
-
-      # redirect_to (api_accounts_path)
-
     end
+    # handle_asynchronously :index
 
     def create
       account = Account.new(account_params)
@@ -17,12 +14,13 @@ module API
         render json: account.errors, status: 422
       end
     end
+    # handle_asynchronously :create
 
     def show
       account = Account.find(params[:id])
       render json: account, status: 200
-
     end
+    # handle_asynchronously :show
 
     def update
       account = Account.find(params[:id])
@@ -32,12 +30,14 @@ module API
         render json: account.errors, status: 422
       end
     end
+    # handle_asynchronously :update
 
     def destroy
       account = Account.find(params[:id])
       account.destroy
       head 204
     end
+    # handle_asynchronously :destroy
 
     def account_params
       params.require(:account).permit(:name)

@@ -6,9 +6,7 @@ views/api/domains/index
       <tr>
         <td><%= domain.hostname %></td>
         <td><%= domain.origin_ip_address %></td>
-        <td><%= link_to 'Show', api_domain_path(domain) %></td>
-        <td><%= link_to 'Edit', edit_api_domain_path(domain) %></td>
-        <td><%= link_to 'Destroy', api_domain_path(domain), confirm: 'Are you sure?', method: :delete %></td>
+        <td><%= domain.account_id %></td>
       </tr>
     <% end %>
   </table>
