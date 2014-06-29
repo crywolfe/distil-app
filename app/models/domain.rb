@@ -12,8 +12,8 @@
 
 class Domain < ActiveRecord::Base
   belongs_to :account
-  # validates :hostname, presence: true, uniqueness: true
-  # validates :origin_ip_address, presence: true
+  validates :hostname, presence: true, uniqueness: true
+  validates :origin_ip_address, presence: true
 
   # def ip_address_finder(hostname)
   #   dns = Dnsruby::Resolver.new

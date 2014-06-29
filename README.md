@@ -139,3 +139,10 @@ The following four gems were installed to support testing and troubleshooting.
 2. shoulda-matchers;
 3. pry-rails; and
 4. annotate.
+
+ISSUES
+======
+
+I have been unable to simultaneously allow validations while also asynchronously requesting the ip addresses.  With `validates :origin_ip_address, presence: true` commented out, the API asynchronously requests and updates ip addresses of the hostname.  However, if `validates :origin_ip_address, presence: true` is on, the API cannot asynchronously request and update the ip address of the hostname.
+
+Further time will be required to resolve this issue.
