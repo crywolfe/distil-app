@@ -50,3 +50,6 @@ end
 # gem 'delayed_job'
 # gem 'delayed_job_active_record'
 gem 'dnsruby'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'

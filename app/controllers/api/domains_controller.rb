@@ -6,12 +6,13 @@ module API
     end
 
     def create
-      domain = Domain.new(domain_params)
-      domain[:origin_ip_address] = domain.ip_address_finder(domain[:hostname])
-      if domain.save
-        render json: domain, status: 201, location: domain
+      @domain = Domain.create(domain_params)
+
+      if @domain.save
+        ApiWorker.perform_async(@domain.id)
+        render json: @domain, status: 201
       else
-        render json: domain.errors, status: 422
+        render json: @domain.errors, status: 422
       end
     end
 
@@ -36,7 +37,7 @@ module API
     end
 
     def domain_params
-      params.require(:domain).permit(:hostname, :origin_ip_address)
+      params.require(:domain).permit(:hostname)
     end
 
   end

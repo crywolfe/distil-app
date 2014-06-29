@@ -10,9 +10,9 @@ The API will have its own accessible subdomain, `api.distil-app-dev.com` when in
 USE
 ===
 
-The user can, through the API enter a hostname.  Then, the API will find the associated ip address of that hostname and update the database table accordingly.
+The user can, through the API, enter a hostname.  Then, the API will find the associated ip address of that hostname through an asynchronous request and update the database table accordingly.
 
-Note: The IP addresses of many hostnames are dynamic, not static.
+Note: The IP addresses of many requested hostnames are dynamic, not static.
 
 INSTALLATION
 ============
@@ -26,6 +26,20 @@ Ensure that your `/etc/hosts` file is set up to allow for the api subdomain.
 ```
 
 Install the `dnsruby` gem.
+
+Install the `sidekiq` gem.  Make sure to `bundle`.
+
+The `sidekiq` gem uses `redis` to manage its job queue.  `redis` must be installed.
+```bash
+brew install redis
+```
+
+Open two separate terminal windows `cd` to the app's root directory.  
+
+In the first terminal run `redis-server`.
+In the second terminal run `bundle exec sidekiq`
+
+The queueing environment is now properly set up.
 
 DATABASE SETUP
 --------------
@@ -64,7 +78,6 @@ To Create an Account (using a browser or developer tools)
 The URL to use is `http://api.distil-app-dev.com:3000/accounts`
 The method is `POST`.
 The body of the method is json.
-
 
 To Update an Account (using cURL)
 ---------------------------------
@@ -115,25 +128,14 @@ The important item to remember is to use '&' within the data string.
 $ curl -i -X POST -d 'domain[hostname]=www.distilnetworks.com&domain[origin_ip_address]=123.456.789.012' http://api.distil-app-dev.com:3000/domains
 ```
 
+curl -i -X POST -d 'domain[hostname]=www.roku.com' http://api.distil-app-dev.com:3000/domains
+
 TESTING AND TROUBLESHOOTING
 ===========================
 
 The following four gems were installed to support testing and troubleshooting.
 
 1. rspec-rails;
-2. shoulda-matchers
+2. shoulda-matchers;
 3. pry-rails; and
 4. annotate.
-
-ISSUES
-======
-
-I attempted to use several different gems to update records asynchronously, such as 'delayed_job', "delayed_job_active_record", and "beanstalkd-view".
-
-My efforts were unsuccessful with the allotted time I had.  
-
-However, I read the respective docs extensively (to the extent there were docs), read the code and the methods on the rubydocs and github pages for each gem.  I googled for solutions, I read through stackoverflow posts as well as google groups for guidance.  But, none were forthcoming.
-
-Specifically, my issue was that when I used the 'delayed_job' 'delay' method, it created a database attribute called 'handler' to hold the request, but I simply could not get the job to properly run in the background.  With that, I continued to get 'no method' errors.  I dug deep and employed my friend and confidant 'pry-rails'. But, still I could not figure out a solution.
-
-In short, as it relates to this exercise I have reached my level of incompetency and will need further guidance or more time to solve this issue.

@@ -6,7 +6,6 @@ module API
     end
 
     def create
-      account = Account.new(account_params)
       if account.save
         render json: account, status: 201, location: account
       else
